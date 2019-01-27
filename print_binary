@@ -1,0 +1,29 @@
+#include <iostream>
+#include <cstdio>
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+template <class T>
+void print_binary(T);
+
+int main(int argc, char** argv) {
+	double val = -2.0;
+	printf("size of long double = %d\n", sizeof(long double));
+	printf("size of long long int = %d\n", sizeof(long long int));
+	print_binary(val);
+	
+	return 0;
+}
+
+template <class T>
+void print_binary(T input){
+	union Type {
+		long long int integer;
+		T val;
+	} value;
+	
+	value.val = input;
+	int cast = 1;
+	for(unsigned int i = 0; i < sizeof(T)*8; i++){
+		cast = _rotr(cast,1);
+		std::cout << bool(value.integer & cast) ? 1 : 0;
+	}
+}
